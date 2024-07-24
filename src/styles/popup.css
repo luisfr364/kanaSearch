@@ -27,14 +27,3 @@ main {
   padding: 10px;
   background-color: rgb(245, 245, 244);
 }
-
-@keyframes fadeInLeft {
-  from {
-    transform: translateX(50%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}

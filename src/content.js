@@ -66,9 +66,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         document.body.removeEventListener("click", removeSidePanel);
       }
     });
-
-    sendResponse("Side panel opened");
-    return true;
   }
 });
 
