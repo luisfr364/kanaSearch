@@ -39,6 +39,10 @@ const configs = {
           from: "./src/background.js",
           to: "./background.js",
         },
+        {
+          from: "./src/styles",
+          to: "./styles",
+        },
       ],
     }),
   ],
