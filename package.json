@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "name": "kana-search",
+  "version": "1.0.0",
+  "description": "A simple Chrome extension that searches for Japanese kana",
+  "main": "src/background.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "watch": "webpack --mode=development --watch"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/chrome": "^0.0.269",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "tesseract.js": "^5.1.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
