@@ -11,7 +11,6 @@ async function recognizeText(imageUrl) {
   const {
     data: { text },
   } = await worker.recognize(imageUrl);
-  console.log(text);
   await worker.terminate();
 
   return `${text}`.trim();

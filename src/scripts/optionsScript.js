@@ -16,10 +16,11 @@ dictUrlInput.addEventListener("change", (e) => {
 optionsForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const dictionaryUrlInputValue = dictUrlInput.value;
-  console.log(dictionaryUrlInputValue, "sent");
-
-  chrome.storage.local.set({
-    dictionaryUrl: dictionaryUrlInputValue,
-  });
+  if (dictUrlInput.value.length > 10) {
+    const dictionaryUrlInputValue = dictUrlInput.value;
+    chrome.storage.local.set({
+      dictionaryUrl: dictionaryUrlInputValue,
+    });
+    alert("Settings applied");
+  }
 });

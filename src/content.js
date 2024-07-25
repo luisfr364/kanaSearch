@@ -51,11 +51,6 @@ chrome.runtime.onMessage.addListener(async function (
           type: "recognized-text",
           text: recognizedText,
         });
-
-        const newWindow = window.open("", "_blank");
-        newWindow.document.write(
-          `<img src="${croppedImgUrl}" alt="Cropped Image">`
-        );
       }
     });
   }
@@ -71,7 +66,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       if (data.dictionaryUrl) {
         const newUrl = data.dictionaryUrl.replace("%TEXT%", message.text);
         document.body.appendChild(createSidePanel(newUrl));
-        console.log(dictionaryUrl);
       } else {
         document.body.appendChild(
           createSidePanel(`https://jisho.org/search/${message.text}`)
