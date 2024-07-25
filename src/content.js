@@ -38,27 +38,9 @@ chrome.runtime.onMessage.addListener(async function (
       const croppedCanvas = cropper.getCroppedCanvas({
         width: cropper.getData().width,
         height: cropper.getData().height,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: "high",
       });
-
-      const ctx = croppedCanvas.getContext("2d");
-      const imageData = ctx.getImageData(
-        0,
-        0,
-        croppedCanvas.width,
-        croppedCanvas.height
-      );
-
-      // Get the pixel data Array
-      const data = imageData.data;
-
-      // Convert the image to grayscale
-      for (let i = 0; i < data.length; i += 4) {
-        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        const contrast = avg > 128 ? 255 : 0; // Simple thresholding
-        data[i] = data[i + 1] = data[i + 2] = contrast; // Set R, G, B to the same value (grayscale)
-      }
-
-      ctx.putImageData(imageData, 0, 0);
 
       const croppedImgUrl = croppedCanvas.toDataURL("image/png");
       document.body.removeChild(div);
@@ -69,6 +51,11 @@ chrome.runtime.onMessage.addListener(async function (
           type: "recognized-text",
           text: recognizedText,
         });
+
+        const newWindow = window.open("", "_blank");
+        newWindow.document.write(
+          `<img src="${croppedImgUrl}" alt="Cropped Image">`
+        );
       }
     });
   }
@@ -82,15 +69,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     //Get the dictionary URL from the local storage or use the default one
     chrome.storage.local.get("dictionaryUrl", function (data) {
       if (data.dictionaryUrl) {
-        const newUrl = data.dictionaryUrl.replace(
-          "%TEXT%",
-          message.recognizedText
-        );
+        const newUrl = data.dictionaryUrl.replace("%TEXT%", message.text);
         document.body.appendChild(createSidePanel(newUrl));
         console.log(dictionaryUrl);
       } else {
         document.body.appendChild(
-          createSidePanel(`https://jisho.org/search/${message.recognizedText}`)
+          createSidePanel(`https://jisho.org/search/${message.text}`)
         );
       }
     });

@@ -3,7 +3,7 @@ const dictUrlInput = document.getElementById("item__input--dictUrl");
 
 const dictionaryUrlObj = await chrome.storage.local.get("dictionaryUrl");
 
-if (dictionaryUrlObj) {
+if (dictionaryUrlObj.dictionaryUrl) {
   dictUrlInput.setAttribute("placeholder", dictionaryUrlObj.dictionaryUrl);
 }
 
