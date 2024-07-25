@@ -7,6 +7,12 @@ if (searchBtn) {
   searchBtn.addEventListener("click", openSidePanelOnActivetab);
 }
 
+if (configBtn) {
+  configBtn.addEventListener("click", () => {
+    chrome.runtime.openOptionsPage();
+  });
+}
+
 function openSidePanelOnActivetab() {
   if (searchInput.value) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

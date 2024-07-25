@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/options.css" />
+    <title>kanaSearch Options</title>
+  </head>
+  <body>
+    <header>
+      <h1>kanaSearch Options</h1>
+    </header>
+    <main>
+      <form id="options-form">
+        <ul class="form__list">
+          <li class="list__item">
+            <label for="urlToSearch">Dictionary Url</label>
+            <input
+              type="text"
+              id="item__input--dictUrl"
+              name="urlToSearch"
+              placeholder="https://jisho.org/search/%TEXT%"
+            />
+            <span class="info"
+              >Use %TEXT% as a placeholder for the search term</span
+            >
+          </li>
+        </ul>
+        <button type="submit">Apply</button>
+      </form>
+      <script src="options.js"></script>
+    </main>
+  </body>
+</html>
