@@ -16,4 +16,6 @@ function openSidePanelOnActivetab() {
       });
     });
   }
+
+  window.close();
 }

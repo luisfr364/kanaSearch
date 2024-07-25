@@ -1,8 +1,10 @@
 import Cropper from "./libs/cropperjs-1.6.2/dist/cropper.esm.js";
 import "./libs/cropperjs-1.6.2/dist/cropper.css";
-import createImageWithContainr from "./utils/imageUtils.js";
+import {
+  createImageWithContainer,
+  createSidePanel,
+} from "./utils/elementsUtils.js";
 import recognizeText from "./utils/tesseractWorker.js";
-import createSidePanel from "./sidePanel.js";
 
 chrome.runtime.onMessage.addListener(async function (
   message,
@@ -58,7 +60,7 @@ chrome.runtime.onMessage.addListener(async function (
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.type === "side-panel-open") {
-    document.body.innerHTML += createSidePanel(message.url);
+    document.body.appendChild(createSidePanel(message.url));
 
     document.body.addEventListener("click", function (e) {
       if (e.target !== document.getElementById("my-side-panel")) {
