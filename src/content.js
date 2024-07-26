@@ -4,7 +4,8 @@ import {
   createImageWithContainer,
   createSidePanel,
 } from "./utils/elementsUtils.js";
-import recognizeText from "./utils/tesseractWorker.js";
+
+import { createWorker, PSM } from "tesseract.js";
 
 chrome.runtime.onMessage.addListener(async function (
   message,
@@ -85,6 +86,25 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     });
   }
 });
+
+async function recognizeText(imageUrl) {
+  const worker = await createWorker(["jpn_vert"], 1, {
+    langPath: chrome.runtime
+      .getURL("jpn_vert.traineddata.gz")
+      .replace("jpn_vert.traineddata.gz", ""),
+    tessedit_pageseg_mode: PSM.SINGLE_BLOCK_VERT_TEXT,
+    corePath: chrome.runtime.getURL("tesseract-core-simd.wasm.js"),
+    workerPath: chrome.runtime.getURL("worker.min.js"),
+  });
+
+  const {
+    data: { text, confidence },
+  } = await worker.recognize(imageUrl);
+  console.log(confidence);
+  await worker.terminate();
+
+  return text.trim();
+}
 
 function removeSidePanel() {
   const sidePanel = document.getElementById("my-side-panel");

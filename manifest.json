@@ -2,11 +2,12 @@
   "manifest_version": 3,
   "name": "My Chrome Extension",
   "version": "1.0",
-  "description": "An extension that uses html2canvas",
+  "description": "An extension for looking up Japanese words that appear in mangas with your favorite dictionary",
   "commands": {
     "capture-screen": {
       "suggested_key": {
-        "default": "Ctrl+Shift+A"
+        "default": "Ctrl+Shift+A",
+        "mac": "Command+Shift+A"
       },
       "description": "Capture the visible part of the current tab"
     }
@@ -28,17 +29,17 @@
       "run_at": "document_idle"
     }
   ],
-  "options_page": "./options.html",
   "web_accessible_resources": [
     {
-      "resources": ["./styles"],
-      "matches": ["<all_urls>"]
-    },
-    {
-      "resources": ["./data"],
+      "resources": [
+        "tesseract-core-simd.wasm.js",
+        "worker.min.js",
+        "jpn_vert.traineddata.gz"
+      ],
       "matches": ["<all_urls>"]
     }
   ],
+  "options_page": "./options.html",
   "icons": {
     "16": "./assets/kanaSearch16.png",
     "48": "./assets/kanaSearch48.png",

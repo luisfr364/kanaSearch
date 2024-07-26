@@ -23,6 +23,10 @@ const configs = {
         test: /\.css$/, // For CropperJS CSS
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /worker\.js$/,
+        use: { loader: "worker-loader" },
+      },
     ],
   },
   plugins: [
@@ -53,6 +57,18 @@ const configs = {
         {
           from: "./src/assets",
           to: "./assets",
+        },
+        {
+          from: "./src/libs/tesseract/tesseract-core-simd.wasm.js",
+          to: "tesseract-core-simd.wasm.js",
+        },
+        {
+          from: "./src/libs/tesseract/worker.min.js",
+          to: "worker.min.js",
+        },
+        {
+          from: "./src/jpn_vert.traineddata.gz",
+          to: "jpn_vert.traineddata.gz",
         },
       ],
     }),

@@ -3,15 +3,15 @@ const closeBtn = document.getElementById("closeBtn");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 
-if (searchBtn) {
-  searchBtn.addEventListener("click", openSidePanelOnActivetab);
-}
+searchBtn.addEventListener("click", openSidePanelOnActivetab);
 
-if (configBtn) {
-  configBtn.addEventListener("click", () => {
-    chrome.runtime.openOptionsPage();
-  });
-}
+configBtn.addEventListener("click", () => {
+  chrome.runtime.openOptionsPage();
+});
+
+closeBtn.addEventListener("click", () => {
+  window.close();
+});
 
 function openSidePanelOnActivetab() {
   if (searchInput.value) {
