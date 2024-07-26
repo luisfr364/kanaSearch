@@ -4,14 +4,21 @@ chrome.runtime.onStartup.addListener(() => {
 
 chrome.commands.onCommand.addListener(function (commands) {
   if (commands === "capture-screen") {
-    chrome.tabs.captureVisibleTab(null, { format: "png" }, function (dataUrl) {
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          type: "capture-screen",
-          dataUrl,
-        });
-      });
-    });
+    chrome.tabs.captureVisibleTab(
+      null,
+      { format: "png", quality: 99 },
+      function (dataUrl) {
+        chrome.tabs.query(
+          { active: true, currentWindow: true },
+          function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {
+              type: "capture-screen",
+              dataUrl,
+            });
+          }
+        );
+      }
+    );
   }
 });
 
@@ -21,8 +28,6 @@ chrome.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   if (message.type === "recognized-text") {
-    sendResponse({ status: "ok" });
-
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         type: "side-panel-open",

@@ -33,6 +33,16 @@
     {
       "resources": ["./styles"],
       "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["./data"],
+      "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "icons": {
+    "16": "./assets/kanaSearch16.png",
+    "48": "./assets/kanaSearch48.png",
+    "128": "./assets/kanaSearch128.png",
+    "512": "./assets/kanaSearch512.png"
+  }
 }

@@ -50,6 +50,10 @@ const configs = {
           from: "./src/styles",
           to: "./styles",
         },
+        {
+          from: "./src/assets",
+          to: "./assets",
+        },
       ],
     }),
   ],

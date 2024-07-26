@@ -18,7 +18,7 @@ function openSidePanelOnActivetab() {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {
         type: "side-panel-open",
-        text: `https://jisho.org/search/${searchInput.value}`,
+        text: searchInput.value,
       });
     });
   }

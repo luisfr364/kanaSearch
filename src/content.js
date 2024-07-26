@@ -12,7 +12,6 @@ chrome.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   if (message.type === "capture-screen") {
-    await sendResponse(message.dataUrl);
     const { img, div } = createImageWithContainer(message.dataUrl);
 
     //Append them to the body
@@ -29,6 +28,7 @@ chrome.runtime.onMessage.addListener(async function (
 
       ready() {
         cropper.setCropBoxData(cropBoxData);
+        cropper.scale(1.3, 1.3);
       },
     });
 
@@ -38,12 +38,12 @@ chrome.runtime.onMessage.addListener(async function (
       const croppedCanvas = cropper.getCroppedCanvas({
         width: cropper.getData().width,
         height: cropper.getData().height,
-        imageSmoothingEnabled: true,
-        imageSmoothingQuality: "high",
+        imageSmoothungEnabled: true,
       });
 
       const croppedImgUrl = croppedCanvas.toDataURL("image/png");
       document.body.removeChild(div);
+
       recognizedText = await recognizeText(croppedImgUrl);
 
       if (recognizedText) {
