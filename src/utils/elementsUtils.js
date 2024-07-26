@@ -26,10 +26,9 @@ function createSidePanel(url) {
 }
 
 function experimentalImageWithContainer(dataUrl) {
-  window.onload = function () {
-    const script = document.createElement("script");
+  const script = document.createElement("script");
 
-    script.innerHTML = `
+  script.innerHTML = `
   
   function draw() {
     const canvas = document.createElement("canvas");
@@ -75,6 +74,10 @@ function experimentalImageWithContainer(dataUrl) {
         // End dragging
         isDragging = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        chrome.runtime.sendMessage({
+          type: "captured-screen",
+          selectionRect,
       });
   
       // Function to draw the selection box
@@ -101,8 +104,11 @@ function experimentalImageWithContainer(dataUrl) {
   draw();
   `;
 
-    document.body.appendChild(script);
-  };
+  document.body.appendChild(script);
 }
 
-export { createImageWithContainer, createSidePanel };
+export {
+  createImageWithContainer,
+  createSidePanel,
+  experimentalImageWithContainer,
+};

@@ -3,6 +3,7 @@ import "./libs/cropperjs-1.6.2/dist/cropper.css";
 import {
   createImageWithContainer,
   createSidePanel,
+  experimentalImageWithContainer,
 } from "./utils/elementsUtils.js";
 import recognizeText from "./utils/tesseractWorker.js";
 
@@ -12,35 +13,35 @@ chrome.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   if (message.type === "captured-screen") {
-    const { img, container } = createImageWithContainer(message.dataUrl);
+    experimentalImageWithContainer(message.dataUrl);
 
-    //Initiate the CropperJS
-    const cropper = new Cropper(img, {
-      autoCrop: false,
-    });
+    //   //Initiate the CropperJS
+    //   const cropper = new Cropper(img, {
+    //     autoCrop: false,
+    //   });
 
-    let recognizedText = "";
+    //   let recognizedText = "";
 
-    img.addEventListener("cropend", async function () {
-      const croppedCanvas = cropper.getCroppedCanvas({
-        width: cropper.getData().width * 2,
-        height: cropper.getData().height * 2,
-        imageSmoothingEnabled: true,
-        imageSmoothingQuality: "high",
-      });
+    //   img.addEventListener("cropend", async function () {
+    //     const croppedCanvas = cropper.getCroppedCanvas({
+    //       width: cropper.getData().width * 2,
+    //       height: cropper.getData().height * 2,
+    //       imageSmoothingEnabled: true,
+    //       imageSmoothingQuality: "high",
+    //     });
 
-      const croppedImgUrl = croppedCanvas.toDataURL("image/png");
-      container.remove();
+    //     const croppedImgUrl = croppedCanvas.toDataURL("image/png");
+    //     container.remove();
 
-      recognizedText = await recognizeText(croppedImgUrl);
+    //     recognizedText = await recognizeText(croppedImgUrl);
 
-      if (recognizedText) {
-        chrome.runtime.sendMessage({
-          type: "recognized-text",
-          text: recognizedText,
-        });
-      }
-    });
+    //     if (recognizedText) {
+    //       chrome.runtime.sendMessage({
+    //         type: "recognized-text",
+    //         text: recognizedText,
+    //       });
+    //     }
+    //   });
   }
 
   return true;
