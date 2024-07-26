@@ -23,8 +23,8 @@ chrome.runtime.onMessage.addListener(async function (
 
     img.addEventListener("cropend", async function () {
       const croppedCanvas = cropper.getCroppedCanvas({
-        width: cropper.getData().width,
-        height: cropper.getData().height,
+        width: cropper.getData().width * 2,
+        height: cropper.getData().height * 2,
         imageSmoothingEnabled: true,
         imageSmoothingQuality: "high",
       });
