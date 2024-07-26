@@ -9,6 +9,8 @@ const configs = {
     content: "./src/content.js",
     popupScript: "./src/scripts/popupScript.js",
     optionsScript: "./src/scripts/optionsScript.js",
+    tesseractWorker: "./src/utils/tesseractWorker.js",
+    background: "./src/background.js",
   }, // Your content script as the entry point
   output: {
     filename: "[name].bundle.js", // The bundled output file
@@ -59,16 +61,16 @@ const configs = {
           to: "./assets",
         },
         {
-          from: "./src/libs/tesseract/tesseract-core-simd.wasm.js",
-          to: "tesseract-core-simd.wasm.js",
+          from: "./src/libs/tesseract/tesseract-core-simd-lstm.wasm.js",
+          to: "./data/tesseract-core-simd-lstm.wasm.js",
         },
         {
           from: "./src/libs/tesseract/worker.min.js",
-          to: "worker.min.js",
+          to: "./data/worker.min.js",
         },
         {
           from: "./src/jpn_vert.traineddata.gz",
-          to: "jpn_vert.traineddata.gz",
+          to: "./data/jpn_vert.traineddata.gz",
         },
       ],
     }),

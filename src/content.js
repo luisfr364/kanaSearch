@@ -1,10 +1,10 @@
-import Cropper from "./libs/cropperjs-1.6.2/dist/cropper.esm.js";
-import "./libs/cropperjs-1.6.2/dist/cropper.css";
+import Cropper from "cropperjs";
+import "cropperjs/dist/cropper.css";
 import {
   createImageWithContainer,
   createSidePanel,
 } from "./utils/elementsUtils.js";
-import recognizeText from "./utils/tesseractWorker.js";
+import recognize from "./utils/tesseractWorker.js";
 
 chrome.runtime.onMessage.addListener(async function (
   message,
@@ -19,20 +19,18 @@ chrome.runtime.onMessage.addListener(async function (
       autoCrop: false,
     });
 
-    let recognizedText = "";
-
     img.addEventListener("cropend", async function () {
       const croppedCanvas = cropper.getCroppedCanvas({
-        width: cropper.getData().width * 2,
-        height: cropper.getData().height * 2,
+        width: cropper.getData().width * 1.5,
+        height: cropper.getData().height * 1.5,
         imageSmoothingEnabled: true,
         imageSmoothingQuality: "high",
       });
 
-      const croppedImgUrl = croppedCanvas.toDataURL("image/png");
-      container.remove();
+      const imageUrl = croppedCanvas.toDataURL("image/png");
 
-      recognizedText = await recognizeText(croppedImgUrl);
+      container.remove();
+      const recognizedText = await textRecognition(imageUrl);
 
       if (recognizedText) {
         chrome.runtime.sendMessage({
@@ -72,6 +70,19 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     });
   }
 });
+
+async function textRecognition(canvasUrl) {
+  const workerPath = chrome.runtime.getURL("/data/worker.min.js");
+  const langPath = chrome.runtime.getURL("/data");
+  const corePath = chrome.runtime.getURL(
+    "/data/tesseract-core-simd-lstm.wasm.js"
+  );
+
+  const text = recognize(canvasUrl, workerPath, langPath, corePath);
+
+  return text;
+}
+
 function removeSidePanel() {
   const sidePanel = document.getElementById("my-side-panel");
   if (sidePanel) {
