@@ -21,6 +21,9 @@
   },
 
   "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
@@ -29,16 +32,7 @@
       "run_at": "document_idle"
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "tesseract-core-simd.wasm.js",
-        "worker.min.js",
-        "jpn_vert.traineddata.gz"
-      ],
-      "matches": ["<all_urls>"]
-    }
-  ],
+
   "options_page": "./options.html",
   "icons": {
     "16": "./assets/kanaSearch16.png",

@@ -12,7 +12,7 @@ chrome.commands.onCommand.addListener(function (commands) {
           { active: true, currentWindow: true },
           function (tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {
-              type: "capture-screen",
+              type: "captured-screen",
               dataUrl,
             });
           }

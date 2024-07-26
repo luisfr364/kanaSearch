@@ -1,15 +1,13 @@
 function createImageWithContainer(dataUrl) {
-  //Create a div containing the elements to display the image
-  const div = document.createElement("div");
-  div.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999;`;
-  const img = new Image();
+  const container = document.createElement("div");
+  container.style.cssText = `position: fixed; top: 0; left: 0; z-index: 100; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);`;
+  const img = document.createElement("img");
+  img.style.cssText = `position: block`;
   img.src = dataUrl;
-  img.style.cssText = "display: block; max-width: 100%;";
-  div.appendChild(img);
+  container.appendChild(img);
+  document.body.appendChild(container);
 
-  const elements = { img, div };
-
-  return elements;
+  return { img, container };
 }
 
 function createSidePanel(url) {
