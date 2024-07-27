@@ -1,3 +1,4 @@
+//Warn: onStartup listener for avoiding the service worker for being inactive
 chrome.runtime.onStartup.addListener(() => {
   console.log(`onStartup()`);
 });

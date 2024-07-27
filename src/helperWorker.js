@@ -1,3 +1,5 @@
+//TODO Either Remove this file or use it for worker
+
 // import Tesseract from "tesseract.js";
 
 // self.onmessage = async function (event) {
