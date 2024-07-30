@@ -58,12 +58,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       }
     });
 
-    if (document.getElementById("my-side-panel")) {
-      document.getElementById("my-side-panel").remove();
+    if (document.getElementById("kanaSearch-side-panel")) {
+      document.getElementById("kanaSearch-side-panel").remove();
     }
 
     document.body.addEventListener("click", function (e) {
-      if (e.target !== document.getElementById("my-side-panel")) {
+      if (e.target !== document.getElementById("kanaSearch-side-panel")) {
         removeSidePanel();
         document.body.removeEventListener("click", removeSidePanel);
       }
@@ -72,7 +72,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 //Wrapper function for text recognition with imports
-//due to technical problem with imports in the original wrapper function
+//due to technical problem with the imports in the original wrapper function
 async function textRecognition(canvasUrl) {
   const workerPath = chrome.runtime.getURL("/data/worker.min.js");
   const langPath = chrome.runtime.getURL("/data");
@@ -86,7 +86,7 @@ async function textRecognition(canvasUrl) {
 }
 
 function removeSidePanel() {
-  const sidePanel = document.getElementById("my-side-panel");
+  const sidePanel = document.getElementById("kanaSearch-side-panel");
   if (sidePanel) {
     document.body.removeChild(sidePanel);
   }
